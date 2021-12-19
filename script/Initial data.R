@@ -51,3 +51,20 @@ hops <- labelise(hops, self = FALSE,
 #Copie en locale
 write$rds(hops, file = "hops.rds", compress = "gz")
 
+
+
+#Création du jeu de donnée pour la sélection de houblon
+hops_select <- gather(hops, "other", "cohumulone","beta", "oil", "myrcene", "caryophylene", "farnesene", "humulene", "alpha", key = "orga", value = "values")
+hops_select$values <- as.numeric(hops_select$values)
+hops_select <- labelise(hops_select, self = FALSE,
+  label = list(
+    values    = "Brewing values",
+    orga   = "Organic compounds"
+  ),
+  units = list(
+    values    = "%"
+  )
+)
+
+#Copie en locale
+write$rds(hops_select, file = "hops_select.rds", compress = "gz")
